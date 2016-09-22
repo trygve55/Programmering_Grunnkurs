@@ -106,7 +106,7 @@ class ValutaKalkulator {
 			if (noExit == false) break;
 
 			while (opKonv == 0) {
-				switch (getInt("Velg oprasjon: \n1. Konverter til NOK\n2. Konverter fra NOK\n3. Få valutakurs i forhold til NOK")) {
+				switch (getInt("Velg oprasjon: \n1. Konverter til NOK\n2. Konverter fra NOK\n3. F? valutakurs i forhold til NOK")) {
 					case 1: 	opKonv = 1;
 								break;
 
