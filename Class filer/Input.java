@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 class Input {
 	public Input() {}
 	
@@ -12,6 +14,35 @@ class Input {
 			
 			try {
     			inputTall = sc.nextInt();
+			} catch (Exception e) {
+				System.out.println("ikke int");
+				continue;
+			}
+			
+			if (inputTall < minimum) {
+				System.out.println("Tallet kan ikke vaere lavere en " + minimum + "!");
+				continue;
+			} else if (inputTall > maksimum) {
+				System.out.println("Tallet kan ikke vaere hoyere en " + maksimum + "!");
+				continue;
+			} else {
+				noExit = false;
+			}
+		}
+		return inputTall;
+	}
+	
+	public double getDouble(String dialog, double minimum, double maksimum) {
+		
+		double inputTall = 0;
+		boolean noExit = true;
+		
+		while (noExit) {
+			System.out.println(dialog);
+			Scanner sc = new Scanner(System.in);
+			
+			try {
+    			inputTall = sc.nextDouble();
 			} catch (Exception e) {
 				System.out.println("ikke int");
 				continue;

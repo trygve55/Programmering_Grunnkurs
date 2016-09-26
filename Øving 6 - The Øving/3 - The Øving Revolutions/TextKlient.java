@@ -154,7 +154,7 @@ class TextKlient {
 			} else {
 				TextAnalyse text = new TextAnalyse(inputString);
 
-				System.out.println("\n Teksten som blir analysert er: " + text.getText());
+				System.out.println("\nTeksten som blir analysert er: " + text.getText());
 				System.out.println("Antall bokstaver: " + text.getAntallBokstaver());
 				System.out.println("Antall forskjellige bokstaver: " + text.getForskjelligeBokstaver());
 				System.out.println("Prosent ikke bokstaver: " + text.getProsentIkkeBokstaver() + "%");
