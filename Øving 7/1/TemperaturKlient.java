@@ -16,7 +16,6 @@ class Temperaturer {
 		for (int i = 0; i < temperaturDatabase.length; i++) {
 			for(int k = 0; k < temperaturDatabase[i].length; k++) {
 				temperaturDatabase[i][k] = (double) -8 + Math.cos((2.0*Math.PI*(k + 5)/24)) * 10 + random.nextDouble()*40;
-				//System.out.println(i + ", " + k + " " + temperaturDatabase[i][k]);
 			}
 		}
 	}
@@ -111,45 +110,6 @@ class Input {
 			}
 		}
 		return inputTall;
-	}
-	
-	public double getDouble(String dialog, double minimum, double maksimum) {
-		
-		double inputTall = 0;
-		boolean noExit = true;
-		
-		while (noExit) {
-			System.out.println(dialog);
-			Scanner sc = new Scanner(System.in);
-			
-			try {
-    			inputTall = sc.nextDouble();
-			} catch (Exception e) {
-				System.out.println("ikke int");
-				continue;
-			}
-			
-			if (inputTall < minimum) {
-				System.out.println("Tallet kan ikke vaere lavere en " + minimum + "!");
-				continue;
-			} else if (inputTall > maksimum) {
-				System.out.println("Tallet kan ikke vaere hoyere en " + maksimum + "!");
-				continue;
-			} else {
-				noExit = false;
-			}
-		}
-		return inputTall;
-	}
-	
-	public String getString(String dialog) {
-		
-		String inputString = "";
-		System.out.println(dialog);
-		Scanner sc = new Scanner(System.in);
-		inputString = sc.nextLine();
-		
-		return inputString;
 	}
 }
 
