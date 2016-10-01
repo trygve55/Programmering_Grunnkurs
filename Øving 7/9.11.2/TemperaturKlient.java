@@ -113,7 +113,6 @@ class Input {
 	}
 }
 
-
 class TemperaturKlient {
 	
 	public static void main(String[] args) {
