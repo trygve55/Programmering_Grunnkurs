@@ -61,6 +61,35 @@ class Input {
 		return inputTall;
 	}
 	
+	public long getLong(String dialog, long minimum, long maksimum) {
+		
+		long inputTall = 0;
+		boolean noExit = true;
+		
+		while (noExit) {
+			System.out.println(dialog);
+			Scanner sc = new Scanner(System.in);
+			
+			try {
+    			inputTall = sc.nextLong();
+			} catch (Exception e) {
+				System.out.println("ikke long");
+				continue;
+			}
+			
+			if (inputTall < minimum) {
+				System.out.println("Tallet kan ikke vaere lavere en " + minimum + "!");
+				continue;
+			} else if (inputTall > maksimum) {
+				System.out.println("Tallet kan ikke vaere hoyere en " + maksimum + "!");
+				continue;
+			} else {
+				noExit = false;
+			}
+		}
+		return inputTall;
+	}
+	
 	public String getString(String dialog) {
 		
 		String inputString = "";
