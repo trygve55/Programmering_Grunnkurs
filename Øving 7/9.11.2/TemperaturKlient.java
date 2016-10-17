@@ -20,31 +20,45 @@ class Temperaturer {
 		}
 	}
 	
-	public double getAverageTempMonth() {
-		double tempTotal = 0;
+	public double[] getAverageTempMonth() {
+	double[] tempTotal = new double [temperaturDatabase.length];
 		for (int i = 0; i < temperaturDatabase.length; i++) {
 			for(int k = 0; k < temperaturDatabase[i].length; k++) {
-				tempTotal += temperaturDatabase[i][k];
+				tempTotal[i] = temperaturDatabase[i][k];
 			}
 		}
-		return (tempTotal / (temperaturDatabase.length * temperaturDatabase[0].length));
+		return tempTotal;
+		// String out = "";
+		// for (int i = 0;i < tempTotal.length;i++) {
+			// out += tempTotal[i] + ", ";
+		// }
+		// return out;
 	}
 	
-	public double getAverageTempMonthTime(int time) {
-		double tempTotal = 0;
+	public double[] getAverageTempMonthTime(int time) {
+		double[] tempTotal = new double[temperaturDatabase.length];
 		for (int i = 0; i < temperaturDatabase.length; i++) {
-			tempTotal += temperaturDatabase[i][time];
+			tempTotal[i] = temperaturDatabase[i][time];
 		}
-		return tempTotal / (temperaturDatabase.length);
+		return tempTotal;
 	}
 	
-	public double getAverageTempMonthDay(int day) {
+	public double[] getAverageTempMonthDay() {
+		
+		double[] tempTotal = new double[temperaturDatabase.length];
+		for (int k = 0; k < temperaturDatabase.length; k++) {
+			tempTotal[k] = getAverageTempMonthDayNonArray(k);
+		}
+		return tempTotal;
+	}
+	
+	public double getAverageTempMonthDayNonArray(int day) {
 		
 		double tempTotal = 0;
 		for (int k = 0; k < temperaturDatabase[0].length; k++) {
 			tempTotal += temperaturDatabase[day ][k];
 		}
-		return tempTotal / (temperaturDatabase[0].length);
+		return tempTotal / temperaturDatabase.length;
 	}
 	
 	public String getTempGroup(int start, int intervall, int antall) {
@@ -54,11 +68,11 @@ class Temperaturer {
 		
 		for (int i = 0; i < grupper.length; i++) {
 			for (int k = 0; k < temperaturDatabase.length; k++) {
-				if (i ==  0 && getAverageTempMonthDay(k) < start) {
+				if (i ==  0 && getAverageTempMonthDayNonArray(k) < start) {
 					grupper[0]++;
-				} else if (i ==  grupper.length - 1  && getAverageTempMonthDay(k) > start + i * intervall)  {
+				} else if (i ==  grupper.length - 1  && getAverageTempMonthDayNonArray(k) > start + i * intervall)  {
 					grupper[(grupper.length - 1)]++;
-				} else if (getAverageTempMonthDay(k) >= start + i * intervall && getAverageTempMonthDay(k) < start + (i + 1) * intervall) {
+				} else if (getAverageTempMonthDayNonArray(k) >= start + i * intervall && getAverageTempMonthDayNonArray(k) < start + (i + 1) * intervall) {
 					grupper[i]++;
 				}
 			} 
@@ -122,6 +136,8 @@ class TemperaturKlient {
 		System.out.println("En måned med 31 dager har blitt lagt til.");
 		
 		int action = 0, inputVal = 0;
+		double[] array = new double[temp.getDaysInMonth()];
+		String out = "";
 		boolean noExit = true;
 		
 		while (noExit) {
@@ -134,8 +150,12 @@ class TemperaturKlient {
 							break;
 				case  2:	System.out.println("Middeltemperaturen denne måneden var " + temp.getAverageTempMonth() + ".");
 							break;
-				case  3:	inputVal = input.getInt("Dag?", 1, temp.getDaysInMonth());
-							System.out.println("Middeltemperaturen på dag " + inputVal + " i denne måneden var " + temp.getAverageTempMonthDay(inputVal) + ".");
+				case  3:	array = temp.getAverageTempMonthDay();
+							out = "";
+							for (int i = 0; i < temp.getDaysInMonth();i++) {
+								out += ((int) array[i]) + ", "; 
+							}
+							System.out.println("Middeltemperaturen på dagene i denne måneden var " + out + ".");
 							break;
 				case  4:	inputVal = input.getInt("Time?", 0, 23);
 							System.out.println("Middeltemperaturen " + inputVal + ":00 i denne måneden var " + temp.getAverageTempMonthTime(inputVal) + ".");

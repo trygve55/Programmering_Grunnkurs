@@ -22,6 +22,12 @@ class Tekst {
 		return (double) lengde/ord.length;
 	}
 	
+		public int getWords() {
+		String[] ord = tekst.split(" ");
+			
+		return ord.length;
+	}
+	
 	public String getMeanWordPerPeriodLength() {
 		String[] setning = tekst.split("[.!?:]");
 		double[] lengde = new double[setning.length];
@@ -115,7 +121,7 @@ class EnkelTekstBehandling {
 		boolean noExit = true;
 		
 		while (noExit) {
-			action = input.getInt("1 - Legg inn ny tekst.\n2 - Vis teksten.\n3 - Finn gjennomsnitlig lengde på ord i teksten.\n4 - Finn gjennomsnitlig lengde på ord per setning.\n5 - Bytt ut et ord i teksten med et anna.\n6 - Skriv ut tekst med store bokstaver.\n7 - Skriv ut lengde på tekst.\n-1 - Avslutte. \n", -1, 7);
+			action = input.getInt("1 - Legg inn ny tekst.\n2 - Vis teksten.\n3 - Finn gjennomsnitlig lengde på ord i teksten.\n4 - Finn gjennomsnitlig lengde på ord per setning.\n5 - Bytt ut et ord i teksten med et anna.\n6 - Skriv ut tekst med store bokstaver.\n7 - Skriv ut lengde på tekst.\n-1 - Avslutte. \n", -1, 8);
 			
 			switch(action) {
 				case -1:	noExit = false;
@@ -141,6 +147,8 @@ class EnkelTekstBehandling {
 							
 				case  7:	System.out.println(tekst.getLengde());
 							break;
+							
+				case 8:		System.out.println("Antall ord er" + tekst.getWords() + ".");
 				
 			}
 			action = 0;

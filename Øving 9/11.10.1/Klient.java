@@ -1,8 +1,8 @@
  import java.util.Scanner;
  
  class Person {
-	String fornavn, etternavn;
-	int fødselsår;
+	final String fornavn, etternavn;
+	final int fødselsår;
 	
 	public Person(String fornavn, String etternavn, int fødselsår) {
 		this.fornavn = fornavn;
@@ -82,14 +82,14 @@
 	}
 	
 	public int getSkatteTrekkPerÅr() {
-		return (int) ((double) getSkatteTrekkPerMåned()*10.5);
+		return (int) ((double)getMånedslønn()*getSkatteprosent()*10.5/100);
 	}
 	
 	public String getNavnFormen() {
 		return personalia.getEtternavn() + ", " + personalia.getFornavn();
 	}
 	
-	public int getAlder() {
+	public int getAlder() { 
 		java.util.GregorianCalendar kalender = new java.util.GregorianCalendar();
 		return kalender.get(java.util.Calendar.YEAR) - personalia.getFødselsår();
 	}
