@@ -5,6 +5,7 @@ import java.util.Locale;
 class Database {
 	File saldoFile;
 	File transaksjonsFile;
+	int transaksjonNr = 0;
 	
 	
 	public Database(String saldoFileName, String transaksjonsFileName) {
@@ -37,6 +38,47 @@ class Database {
 			System.out.println("Lager ny saldo fil.");
 		}
 		return out;
+	}
+	
+	
+	public double[] getTransaksjon() {
+		double[] transaksjoner;
+		try {
+			String[] file = new String[100];
+			FileReader fileReader = new FileReader(transaksjonsFile);
+			BufferedReader bufferReader = new BufferedReader(fileReader);
+			int antallLinjer = 0;
+			boolean exit = false;
+			
+			for (int i = 0;!exit; i++) {
+				file[i] = bufferReader.readLine();
+				if (file[i] == null) {
+					exit = true;
+				} else {
+					antallLinjer++;
+				}
+			}
+			System.out.println(antallLinjer);
+			transaksjoner = new double[antallLinjer];
+			for (int i = 0;i < antallLinjer;i++) {
+				System.out.println(file[i]);
+				String[] line = file[i].split(" ");
+				if (line[0].matches("U")) {
+					transaksjoner[i] = - Double.parseDouble(line[1]);
+				} else if (line[0].matches("I")) {
+					transaksjoner[i] = Double.parseDouble(line[1]);
+				}
+			}
+			try {
+				
+			} catch (Exception e) {
+				System.out.println("Lager ny saldo fil.");
+			}
+		} catch (Exception e) {
+			System.out.println(e);
+			transaksjoner = null;
+		}
+		return transaksjoner;
 	}
 	
 	public void saveTransaction(double transaksjon) {
@@ -90,15 +132,27 @@ class Konto {
 	}
 	
 	public boolean transaksjon(double transaksjon) {
-		if (saldo + transaksjon >= 0) {
-			saldo += transaksjon;
-			database.setSaldo(saldo);
-			database.saveTransaction(transaksjon);
+		saldo += transaksjon;
+		System.out.println("Saldo: " + saldo);
+		database.setSaldo(saldo);
+		if (saldo >= 0) {
 			return true;
 		} else {
 			database.nukeIt();
 			return false;
 		}
+	}
+	
+	public String getTransaksjon() {
+		String out = "";
+		double[] transaksjoner = database.getTransaksjon();
+		for (int i = 0;i < transaksjoner.length;i++) {
+			transaksjon(transaksjoner[i]);
+			out += transaksjoner[i];
+			System.out.println(transaksjoner[i]);
+		}
+		
+		return out;
 	}
 }
 
@@ -183,23 +237,26 @@ class Klient {
 		
 		boolean exit = false;
 		
-		while (!exit) {
-			System.out.println("Saldoen er nå: " + konto.getSaldo() + " kr");
+		konto.getTransaksjon();
+		konto.setSaldo(konto.getSaldo());
+		
+		// while (!exit) {
+			// System.out.println("Saldoen er nå: " + konto.getSaldo() + " kr");
 			
-			int in = input.getInt("\n1 - Transaksjon.\n2 - Set saldo.\n-1 - Avslutt.", -1, 2);
-			System.out.println("\n");
+			// int in = input.getInt("\n1 - Transaksjon.\n2 - Set saldo.\n-1 - Avslutt.", -1, 2);
+			// System.out.println("\n");
 			
-			switch (in) {
-				case -1: 	exit = true; break;
+			// switch (in) {
+				// case -1: 	exit = true; break;
 				
-				case 1:		if (!konto.transaksjon(input.getDouble("Størelse på transaksjon: ", -9999999, 9999999))) {
-								exit = true;
-								System.out.println("Konto er nå tom, alt slettes!");
-							}
-							break;
+				// case 1:		if (!konto.transaksjon(input.getDouble("Størelse på transaksjon: ", -9999999, 9999999))) {
+								// exit = true;
+								// System.out.println("Konto er nå tom, alt slettes!");
+							// }
+							// break;
 				
-				case 2:		konto.setSaldo(input.getDouble("Saldoen skal settes til: ", 0, 9999999)); break;
-			}
-		}
+				// case 2:		konto.setSaldo(input.getDouble("Saldoen skal settes til: ", 0, 9999999)); break;
+			// }
+		// }
 	}
 }
