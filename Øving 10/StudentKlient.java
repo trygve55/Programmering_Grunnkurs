@@ -29,10 +29,6 @@ class Student {
 class Oppgaveoversikt {
 	private Student[] studenter = new Student[0];
 	private int antStudent = 0;
-	
-	public Oppgaveoversikt() {
-		
-	}
 
 	public int getAntStudenter() {
 		return studenter.length;
@@ -43,14 +39,14 @@ class Oppgaveoversikt {
 		return studenter[index].getAntOppg();
 	}
 	
-	public void addStudent(String navn) {
-		int index = arrayExpand();
-		studenter[index] = new Student(navn, 0);
-	}
-	
-	public void addStudent(String navn, int antOppg) {
-		int index = arrayExpand();
-		studenter[index] = new Student(navn, antOppg);
+	public boolean addStudent(String navn, int antOppg) {
+		if (getStudentIndex(navn) == -1) {
+			int index = arrayExpand();
+			studenter[index] = new Student(navn, antOppg);
+			return true;
+		} else {
+			return false;
+		}
 	}
 	
 	public boolean økAntOppgStudent(String navn, int økning) {
@@ -155,8 +151,11 @@ class StudentKlient {
 			switch(in) {
 				case -1:	exit = true; break;
 				
-				case 1: 	oppgOversikt.addStudent(input.getString("Navn på student: "), input.getInt("Hvor mange oppgaver har studenten løst: ", 0, 999999)); 
-							System.out.println("Student lagt til."); break;
+				case 1: 	if (oppgOversikt.addStudent(input.getString("Navn på student: "), input.getInt("Hvor mange oppgaver har studenten løst: ", 0, 999999))) {
+								System.out.println("Student lagt til."); break;
+							} else {
+								System.out.println("Student eksisterer allerede."); break;
+							}
 				
 				case 2:		System.out.println("Antall studenter er " + oppgOversikt.getAntStudenter()); break;
 				
