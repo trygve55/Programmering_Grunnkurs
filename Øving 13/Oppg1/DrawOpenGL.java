@@ -89,7 +89,7 @@ class CarvansOpenGL extends GLCanvas implements GLEventListener {
 
 class DrawOpenGL {
 	public static void main(String[] args) {
-		String title = "Øving 12 Oppg 1";
+		String title = "Øving 13 Oppg 1";
 		int width = 800;
 		int height = 600;
 		

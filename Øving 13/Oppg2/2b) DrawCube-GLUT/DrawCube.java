@@ -78,7 +78,7 @@ class CarvansOpenGL extends GLCanvas implements GLEventListener {
 
 class DrawCube {
 	public static void main(String[] args) {
-		String title = "Øving 12 Oppg 1";
+		String title = "Øving 13 Oppg 2b";
 		int width = 800;
 		int height = 600;
 		
