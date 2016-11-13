@@ -31,7 +31,7 @@ class PrimTall {
 		while (noExit) {
 			svar = (double) tall/dele;
 			svar2 = Math.round(svar);
-			System.out.print(tall + " / " + dele + " = " + svar + " ?= " + svar2 + " " + (boolean)(svar == svar2));
+			System.out.println(tall + " / " + dele + " = " + svar + " ?= " + svar2 + " " + (boolean)(svar == svar2));
 			if (svar == svar2) {
 				showMessageDialog(null, "Ikke primtall");
 				break;

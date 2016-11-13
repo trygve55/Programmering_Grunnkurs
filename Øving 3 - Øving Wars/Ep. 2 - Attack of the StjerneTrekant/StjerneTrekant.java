@@ -46,8 +46,7 @@ class StjerneTrekant {
 
 	public static void main(String[] args) {
 		int lines = getInt("Hvor mange linje skal det være?", 3, 80);
-		drawS(lines);
+		//drawS(lines);
 		drawT(lines);
 	}
-
 }
